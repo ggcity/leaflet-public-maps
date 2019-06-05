@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>State Political Districts Map | City of Garden Grove</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <script data-main='/maps/js/lh.js' src="/maps/js/require.js"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      function main (Lh) {
+        var map = Lh.map('map', {
+          maptiks_id: "state-districts",
+          minZoom: 11,
+          maxZoom: 14
+        });
+
+        var basemap = Lh.mapbox('boundary').addTo(map);
+
+        var radioLayers = Lh.wms('//ggcity.org/geoserver/gis/wms', {
+          "State Senate Districts": 'gis:state.senate_districts',
+          "State Congressional Districts": 'gis:state.assembly_districts',
+          "State Assembly Districts": 'gis:state.congress_districts'
+        });
+
+        radioLayers["State Senate Districts"].addTo(map);
+
+        L.control.search().addTo(map);
+        L.control.layers(radioLayers, null, {collapsed:($(window).width() < 768)}).addTo(map);
+      }
+    </script> 
+  </body>
+</html>

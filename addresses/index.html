@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Addresses Map | City of Garden Grove</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <script data-main='/maps/js/lh.js' src="/maps/js/require.js"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      function main (Lh) {
+        var map = Lh.map('map', {
+          maptiks_id: "addresses",
+          bounds: [[33.773542, -117.94173], [33.777877, -117.932342]],
+          minZoom: 14
+        });
+
+        var basemap = Lh.mapbox('boundary').addTo(map);
+
+        var toggleLayers = Lh.wms('//ggcity.org/geoserver/gis/wms', {
+          "All Addresses": 'gis:city.addresses',
+          "Fix Addresses": 'gis:city.ocfa_addresses2fix',
+          "Site Addresses": 'gis:city.site_addresses',
+          "Address Units": 'gis:city.address_units',
+          "Address Labels": 'gis:city.address_labels'
+        });
+
+        var radioLayers = {
+          "Basemap": basemap,
+          "Aerials": Lh.aerial()
+        };
+
+        toggleLayers["All Addresses"].addTo(map);
+        
+        L.control.search().addTo(map);
+        L.control.layers(radioLayers, toggleLayers, {collapsed:($(window).width() < 768)}).addTo(map);
+      }
+    </script> 
+  </body>
+</html>

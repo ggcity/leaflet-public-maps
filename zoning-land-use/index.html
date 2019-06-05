@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Zoning & Land Use Map | City of Garden Grove</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <script data-main='/maps/js/lh.js' src="/maps/js/require.js"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      function main (Lh) {
+        var map = Lh.map('map', {
+          maptiks_id: "zoning-land-use",
+          maxZoom:18
+        });
+
+        var basemap = Lh.mapbox('no-boundary').addTo(map);
+
+        var zoningOverlays = Lh.wms('//ggcity.org/geoserver/gis/wms', [
+          'gis:planning.zoning',
+          'gis:city.parcels',
+          'gis:city.address_labels',
+          'gis:city.boundary'
+        ]);
+
+        var landUseOverlays = Lh.wms('//ggcity.org/geoserver/gis/wms', [
+          'gis:planning.land_use',
+          'gis:city.parcels',
+          'gis:city.address_labels',
+          'gis:city.boundary'
+        ]);
+
+        var zoning = L.layerGroup(zoningOverlays).addTo(map);
+        var landUse = L.layerGroup(landUseOverlays);
+
+        var radioLayers = {
+          "Zoning": zoning,
+          "Land Use": landUse
+        };
+
+        L.control.search().addTo(map);
+        L.control.layers(radioLayers, null, {collapsed:($(window).width() < 768)}).addTo(map);
+      }
+    </script> 
+  </body>
+</html>

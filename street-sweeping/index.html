@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Street Sweeping Map | City of Garden Grove</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <script data-main='/maps/js/lh.js' src="/maps/js/require.js"></script>
+  </head>
+  <body>
+    <div class="alert alert-warning" role="alert" style="margin:0">
+      <strong>Warning!</strong> The City of Garden Grove does not guarantee the accuracy of this map. 
+      Please check the signs posted in your area to confirm the exact dates and times of street sweeping to avoid citation.
+    </div>
+    <div id="map"></div>
+    <script>
+      function main (Lh) {
+        var map = Lh.map('map', {
+          maptiks_id: "street-sweeping",
+          maxZoom: 16
+        });
+
+        var basemap = Lh.mapbox('no-boundary').addTo(map);
+
+        Lh.wms('//ggcity.org/geoserver/gis/wms', 'gis:pw.street_sweeping', { identify: false }).addTo(map);
+
+        L.control.search({ popupContent: function (data) {
+          return '<div style="text-align: center; font-size: 1.1em;">' + data.address + '</div>' +
+            '<div style="text-align: center; font-size: 1.25em;">Your <strong>street sweeping</strong> is on the <span class="text-primary" style="font-weight: bold">' + 
+            data.street_sweeping_days + '</span> of the month.</div>'
+        }}).addTo(map);
+      }
+    </script> 
+  </body>
+</html>

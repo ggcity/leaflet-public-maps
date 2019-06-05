@@ -1,0 +1,23 @@
+{
+  "name": "community-development",
+  "version": "1.0.0",
+  "description": "community development public map",
+  "main": "index.js",
+  "author": "moo",
+  "license": "MIT",
+  "flat": true,
+  "resolutions": {
+    "@polymer/polymer": "3.0.0-pre.1",
+    "@ggcity/leaflet-map": "0.6.0",
+    "@ggcity/leaflet-wms": "0.6.0",
+    "@ggcity/leaflet-geojson": "0.7.0",
+    "@ggcity/leaflet-tile-layer": "0.6.0"
+  },
+  "dependencies": {
+    "@ggcity/leaflet-geojson": "0.7.0",
+    "@ggcity/leaflet-map": "0.6.0",
+    "@ggcity/leaflet-tile-layer": "0.6.0",
+    "@ggcity/leaflet-wms": "0.6.0",
+    "@ggcity/map-viewer": "1.0.6"
+  }
+}

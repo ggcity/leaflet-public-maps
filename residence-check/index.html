@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Residence Check | City of Garden Grove</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <script data-main='/maps/js/lh.js' src="/maps/js/require.js"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      function main (Lh) {
+        var map = Lh.map('map');
+
+        var basemap = Lh.mapbox('boundary').addTo(map);
+
+        var overlays = Lh.wms('//ggcity.org/geoserver/gis/wms', [
+          'gis:city.tree_locations',
+          'gis:city.address_labels'
+        ], { 
+          identify: false 
+        });
+
+        L.layerGroup(overlays).addTo(map);        
+        L.control.search({
+          popupContent: function (data) {
+            var apps = [0,1,2];
+            return '<div style="text-align: center"><h6 style="margin-bottom: -20px">' + data.address + '</h6><p>is a Garden Grove address</p><p># of applications: <strong>' + apps[Math.floor(Math.random() * apps.length)] + '</strong></p></div>';
+          }
+        }).addTo(map);
+      }
+    </script> 
+  </body>
+</html>

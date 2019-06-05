@@ -1,0 +1,17 @@
+*-alpha/
+3.9
+common
+cgi-bin
+data
+demos
+esri-kinetic-panning
+gg
+@ggcity
+/index.html
+jsapi
+plot
+pubworks
+*test/
+usa
+**/node_modules
+*.swp

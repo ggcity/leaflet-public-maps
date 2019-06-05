@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Code Enforcement Map | City of Garden Grove</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <script data-main='/maps/js/lh.js' src="/maps/js/require.js"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      function main (Lh) {
+        var map = Lh.map('map', {
+          maptiks_id: "code-enforcement",
+          maxZoom:16
+        });
+
+        var basemap = Lh.mapbox('no-boundary').addTo(map);
+
+        var overlayLayers = Lh.wms('//ggcity.org/geoserver/gis/wms', [
+          'gis:code.officer_coverage', 
+          'gis:pd.reporting_districts' 
+        ], { 
+          identify: false 
+        });
+
+        overlayLayers[0].addTo(map);
+
+        L.control.search({ popupContent: function (data) {
+          return '<div style="text-align: center; font-size: 1.1em;">' + data.address + '</div>' +
+            '<div class="text-primary" style="font-weight: bold; font-size: 1.7em; text-align: center">' + data.code_enforcement_officer + '</div>'
+        }}).addTo(map);
+        L.control.layers(null, { "Reporting Districts": overlayLayers[1] }, {collapsed:($(window).width() < 768)}).addTo(map);
+      }
+    </script> 
+  </body>
+</html>
