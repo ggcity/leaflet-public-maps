@@ -19,7 +19,7 @@
           maxZoom: 14
         });
 
-        var basemap = Lh.mapbox('no-boundary').addTo(map);
+        var basemap = Lh.tileLayer('//ggcity.org/tileserver/styles/standard-no-boundary/{z}/{x}/{y}.png').addTo(map);
 
         Lh.wms('//ggcity.org/geoserver/gis/wms', 'gis:county.city_boundaries', {
           identify: false

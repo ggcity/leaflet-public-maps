@@ -17,7 +17,7 @@
           maxZoom: 16
         });
 
-        var basemap = Lh.mapbox('no-boundary').addTo(map);
+        var basemap = Lh.tileLayer('//ggcity.org/tileserver/styles/standard-no-boundary/{z}/{x}/{y}.png').addTo(map);
 
         Lh.wms('//ggcity.org/geoserver/gis/wms', 'gis:pw.trash_pickup', { identify: false }).addTo(map);
 

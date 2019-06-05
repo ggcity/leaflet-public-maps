@@ -18,7 +18,7 @@
           minZoom: 14
         });
 
-        var basemap = Lh.mapbox('boundary').addTo(map);
+        var basemap = Lh.tileLayer('//ggcity.org/tileserver/styles/standard/{z}/{x}/{y}.png').addTo(map);
 
         var toggleLayers = Lh.wms('//ggcity.org/geoserver/gis/wms', {
           "All Addresses": 'gis:city.addresses',

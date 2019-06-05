@@ -16,7 +16,7 @@
           maptiks_id: "octa-bus-stops",
         });
 
-        var basemap = Lh.mapbox('boundary').addTo(map);
+        var basemap = Lh.tileLayer('//ggcity.org/tileserver/styles/standard/{z}/{x}/{y}.png').addTo(map);
 
         Lh.wms('//ggcity.org/geoserver/gis/wms', 'gis:county.octa_bus_stops').addTo(map);
         L.control.search().addTo(map);

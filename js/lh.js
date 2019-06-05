@@ -68,7 +68,7 @@ require([
       attribution: '&copy; <a href="http://openmaptiles.org/" target="_blank">OpenMapTiles</a>' +
         ' &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors' +
         ' &copy; <a href="https://github.com/microsoft/USBuildingFootprints/blob/master/LICENSE" target="_blank">Microsoft</a>',
-      edgeBufferTiles: 2,
+      edgeBufferTiles: 1,
       maxZoom: 20
     }, options));
   };

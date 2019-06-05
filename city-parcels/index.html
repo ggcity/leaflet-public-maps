@@ -16,7 +16,7 @@
           maptiks_id: "city-parcels"
         });
 
-        var basemap = Lh.mapbox('boundary').addTo(map);
+        var basemap = Lh.tileLayer('//ggcity.org/tileserver/styles/standard/{z}/{x}/{y}.png').addTo(map);
 
         var overlays = Lh.wms('//ggcity.org/geoserver/gis/wms', [
           'gis:city.city_owned_parcels', 

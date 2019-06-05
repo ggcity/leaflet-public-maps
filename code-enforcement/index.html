@@ -17,7 +17,7 @@
           maxZoom:16
         });
 
-        var basemap = Lh.mapbox('no-boundary').addTo(map);
+        var basemap = Lh.tileLayer('//ggcity.org/tileserver/styles/standard/{z}/{x}/{y}.png').addTo(map);
 
         var overlayLayers = Lh.wms('//ggcity.org/geoserver/gis/wms', [
           'gis:code.officer_coverage', 

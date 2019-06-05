@@ -18,7 +18,7 @@
           maxZoom: 16
         });
 
-        var basemap = Lh.mapbox('boundary').addTo(map);
+        var basemap = Lh.tileLayer('//ggcity.org/tileserver/styles/standard/{z}/{x}/{y}.png').addTo(map);
 
         Lh.wms('//ggcity.org/geoserver/gis/wms', 'gis:county.census_tracts').addTo(map);
 
