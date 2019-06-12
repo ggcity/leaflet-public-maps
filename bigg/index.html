@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BiGG Map | City of Garden Grove</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <script data-main='/maps/js/lh.js' src="/maps/js/require.js"></script>
+  </head>
+  <body>
+    <select id="bigg-categories">
+      <option></option>
+      <option>Automotive</option>
+      <option>Health and Medical</option>
+      <option>Hotels</option>
+      <option>Other Services</option>
+      <option>Printing</option>
+      <option>Restaurants</option>
+      <option>Retailers</option>
+      <option>Salon &amp; Beauty</option>
+      <option>Sports &amp; Recreation</option>
+    </select>
+    <div id="bigg-list"></div>
+    <div id="map"></div>
+    <script>
+      var Map = function (map) {
+        this.map = map;
+      };
+      
+      Map.prototype = {
+        constructor: Map,
+        map: null,
+      
+        renderLayer: function (geoJSON) {
+          $('#bigg-list').html('')
+          for (var i = 0; i < geoJSON.features.length; i++) {
+            $('#bigg-list').append(geoJSON.features[i].properties.title + '<br>')
+          };
+          this.geoJSONLayer.clearLayers()
+          this.geoJSONLayer.addData(geoJSON)
+          this.map.fitBounds(this.geoJSONLayer.getBounds())
+        },
+      
+        fetchData: function (category) {
+          this.wfsParams = {
+            service: 'WFS',
+            version: '2.0.0',
+            request: 'GetFeature',
+            outputFormat: 'application/json',
+            typeName: 'gis:city.bigg_addresses',
+            srsName: 'EPSG:4326'
+          };
+          if (category) this.wfsParams.cql_filter = "category = '" + category + "'";
+          this.geoserverURL = 'https://ggcity.org/geoserver/gis/ows';
+          $.get(this.geoserverURL, this.wfsParams, this.renderLayer.bind(this));
+        },
+
+        initialize: function () {
+          $('#bigg-categories').on('change', function (e) {
+            var category = e.target.value;
+            this.fetchData(category);
+          }.bind(this));
+          this.fetchData()
+        
+          this.geoJSONLayer = L.geoJSON(null, {
+            onEachFeature: function (feature, layer) {
+              var p = feature.properties
+              var htmlContent = '<center><h4>' + p.title + '</h4>' +
+                p.address + '<br>' +
+                '<a href="' + p.detailed_view + '">Detail Page</a><br>' +
+                '<a href="' + encodeURI(p.directions) + '" target="_blank">Directions</a></center>'
+              layer.bindPopup(htmlContent);
+            }
+          }).addTo(this.map);
+      }};  
+
+      function main (Lh) {
+        var map = Lh.map('map', {
+          //maptiks_id: "bigg",
+          touchZoom: true,
+          scrollWheelZoom: false,
+          minZoom:13,
+          maxZoom:18
+        });
+
+        var basemap = Lh.tileLayer('//ggcity.org/tileserver/styles/standard/{z}/{x}/{y}.png').addTo(map);
+
+        var overlays = Lh.wms('//ggcity.org/geoserver/gis/wms', 'gis:city.neighborhoods', {identify: false}).addTo(map);
+        
+        var m = new Map(map);
+        m.initialize();
+      }
+    </script> 
+  </body>
+</html>
