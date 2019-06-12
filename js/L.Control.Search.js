@@ -25,7 +25,7 @@ L.Control.Search = L.Control.extend({
   _search: function (e) {
     L.DomEvent.stop(e);
 
-    var searchUrl = (this.options.searchUrl) ? this.options.searchUrl : '/maps/api/addresses/info';
+    var searchUrl = (this.options.searchUrl) ? this.options.searchUrl : 'https://ggcity.org/maps/api/addresses/info';
     
     if ($('#address-search').val() == '') return;
 
