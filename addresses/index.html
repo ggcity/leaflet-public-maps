@@ -15,14 +15,14 @@
         var map = Lh.map('map', {
           maptiks_id: "addresses",
           bounds: [[33.773542, -117.94173], [33.777877, -117.932342]],
-          minZoom: 14
+          minZoom: 14,
+          maxZoom: 22
         });
 
         var basemap = Lh.tileLayer('//ggcity.org/tileserver/styles/standard/{z}/{x}/{y}.png').addTo(map);
 
         var toggleLayers = Lh.wms('//ggcity.org/geoserver/gis/wms', {
           "All Addresses": 'gis:city.addresses',
-          "Fix Addresses": 'gis:city.ocfa_addresses2fix',
           "Site Addresses": 'gis:city.site_addresses',
           "Address Units": 'gis:city.address_units',
           "Address Labels": 'gis:city.address_labels'

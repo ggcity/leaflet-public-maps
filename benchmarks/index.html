@@ -18,10 +18,12 @@
 
         var basemap = Lh.tileLayer('//ggcity.org/tileserver/styles/standard/{z}/{x}/{y}.png').addTo(map);
 
-        var wmsSource = '//ggcity.org/geoserver/gis/wms'
+        var wmsSource = '//ggcity.org/geoserver/gis/wms';
+
         Lh.wms(wmsSource, 'gis:city.address_labels', {
           identify: false
         }).addTo(map);
+
         Lh.wms(wmsSource, 'gis:city.benchmarks').addTo(map);
       }
     </script> 
