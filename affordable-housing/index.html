@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Affordable Housing Map | City of Garden Grove</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <script data-main='/maps/js/lh.js' src="/maps/js/require.js"></script>
+  </head>
+  <body>
+    <div id="housing-list"></div>
+    <div id="map"></div>
+    <script>
+      var Map = function (map) {
+        this.map = map;
+      };
+      
+      Map.prototype = {
+        constructor: Map,
+        map: null,
+        rawGeoJSON: null,
+        // create a list of features within the map's bounding box
+        geoJSONList: function (geoJSON, mapBounds) {
+          $('#housing-list').html('')
+          for (var i = 0; i < geoJSON.features.length; i++) {
+            var featureCoords = geoJSON.features[i].geometry.coordinates
+            var featureLatLng = [featureCoords[1], featureCoords[0]]
+            if (mapBounds.contains(featureLatLng)) {
+              $('#housing-list').append(geoJSON.features[i].properties.project_name + '<br>')
+              console.log(mapBounds.contains(featureLatLng));
+            }
+          };
+        },
+        handleResponse: function (rawGeoJSON) {
+          this.rawGeoJSON = rawGeoJSON
+          this.geoJSONList(rawGeoJSON, this.map.getBounds())
+          this.geoJSONMarkers.addData(rawGeoJSON)
+        },
+        wfsParams: {
+          service: 'WFS',
+          version: '2.0.0',
+          request: 'GetFeature',
+          outputFormat: 'application/json',
+          typeName: 'gis:city.affordable_housing_centroids',
+          srsName: 'EPSG:4326'
+        },
+        geoserverURL: 'https://ggcity.org/geoserver/gis/ows',
+        // create map window
+
+
+        initialize: function () {
+          $.get(this.geoserverURL, this.wfsParams, this.handleResponse.bind(this));
+
+          // bind layer features with markers and add markers to map
+          this.geoJSONMarkers = L.geoJSON(null, {
+            onEachFeature: function (feature, layer) {
+              var p = feature.properties
+              var htmlContent = '<center><h4>' + p.project_name + '</h4>' +
+                'Address goes here<br>' +
+                '<a href="' + p.detail_page + '" target="_blank">Detail Page</a></center>'
+              layer.bindPopup(htmlContent);
+            }
+          }).addTo(this.map);
+
+          // listen for move event, append features within map extents to list
+          this.map.on('move', function () {
+            var mapBounds = this.map.getBounds();
+            this.geoJSONList(this.rawGeoJSON, this.map.getBounds())
+          }.bind(this));
+        }
+      };
+
+      function main (Lh) {
+        var map = Lh.map('map', {
+          //maptiks_id: "affordable-housing",
+          touchZoom: true,
+          scrollWheelZoom: false,
+          minZoom:13,
+          maxZoom:18
+        });
+
+        var basemap = Lh.tileLayer('//ggcity.org/tileserver/styles/standard/{z}/{x}/{y}.png').addTo(map);
+
+        var overlays = Lh.wms('//ggcity.org/geoserver/gis/wms', 'gis:city.affordable_housing_parcels', {identify: false}).addTo(map);
+        
+        var m = new Map(map);
+        m.initialize();
+      }
+    </script> 
+  </body>
+</html>
