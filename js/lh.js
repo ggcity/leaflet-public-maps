@@ -38,7 +38,7 @@ require([
     map.fitBounds(map.options.bounds);
 
     L.control.scale().addTo(map);
-    L.control.attribution({ prefix: '<a href="https://ggcity.org/maps" target="_blank">GGCity</a> ' }).addTo(map);
+    L.control.attribution({ prefix: '<a href="https://ggcity.org/maps">GGCity</a> ' }).addTo(map);
   
     return map;
   };
@@ -79,7 +79,7 @@ require([
       format: 'image/png',
       info_format: 'text/html',
       identify: true,
-      maxZoom:20
+      maxZoom:22
     }, options));
     
     var wmsLayers;
@@ -107,8 +107,8 @@ require([
       layers: 'gis:aerials',
       format: 'image/png',
       transparent: false,
-      maxZoom: 20,
-      maxNativeZoom: 20
+      maxZoom: 22,
+      maxNativeZoom: 22
     });
   };
 
