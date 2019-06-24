@@ -5,13 +5,24 @@ require.config({
 require([
   "https://unpkg.com/leaflet@1.5.1/dist/leaflet.js",
   "https://code.jquery.com/jquery-3.4.1.min.js"
-], function () { require([
+], function () { 
+
+  loadCss("https://unpkg.com/leaflet@1.5.1/dist/leaflet.css");
+  loadCss("https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css");
+
+  if ($('script[data-lhembed="true"]').length == 0) {
+    loadCss("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css");
+    loadCss("/maps/css/main.css");
+  }
+
+require([
   "leaflet.edgebuffer",
   "leaflet.wms",
   "L.Control.Search",
   "https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js",
   "https://cdn.maptiks.com/maptiks-leaflet.min.js"
 ], function () {
+
   maptiks.trackcode='7582471a-da37-44e3-8dd1-dbc7bc3f8ca2';
 
   var Lh = {};
@@ -123,7 +134,3 @@ function loadCss(url) {
   document.getElementsByTagName("head")[0].appendChild(link);
 }
 
-loadCss("https://unpkg.com/leaflet@1.5.1/dist/leaflet.css");
-loadCss("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css");
-loadCss("https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css");
-loadCss("/maps/css/main.css");
