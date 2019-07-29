@@ -6,12 +6,16 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <script data-main='/maps/js/lh.js' src="/maps/js/require.js"></script>
+    <link rel="stylesheet" type="text/css" href='/maps/css/main.css'>
+    <link rel="stylesheet" type="text/css" href='https://unpkg.com/leaflet@1.5.1/dist/leaflet.css'>
+
+    <script src="/maps/lh/require.js"></script>
+    <script src='/maps/lh/app.js'></script>
   </head>
   <body>
     <div id="map"></div>
     <script>
-      function main (Lh) {
+      require(['lh', 'lh-search'], function (Lh, LhSearch) {
         var map = Lh.map('map', {
           maptiks_id: "council-districts",
           maxZoom:16
@@ -27,12 +31,12 @@
         });
         L.layerGroup(overlays).addTo(map);
 
-        L.control.search({ popupContent: function (data) {
-          return '<div style="text-align: center; font-size: 1.1em;">' + data.address + '</div>' +
+        LhSearch({ popupContent: function (data) {
+          return '<div style="text-align: center; font-size: 1.2em;">' + data.address + '</div>' +
             '<div class="text-primary" style="font-weight: bold; font-size: 1.8em; text-align: center">' + data.council_member + '</div>' +
-            '<div style="font-weight: bold; font-size: 1.3em; text-align: center">District ' + data.council_district + '</div>'
+            '<div style="font-weight: bold; font-size: 1.4em; text-align: center">District ' + data.council_district + '</div>'
         }}).addTo(map);
-      }
+      });
     </script> 
   </body>
 </html>

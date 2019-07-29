@@ -6,12 +6,16 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <script data-main='/maps/js/lh.js' src="/maps/js/require.js"></script>
+    <link rel="stylesheet" type="text/css" href='/maps/css/main.css'>
+    <link rel="stylesheet" type="text/css" href='https://unpkg.com/leaflet@1.5.1/dist/leaflet.css'>
+
+    <script src="/maps/lh/require.js"></script>
+    <script src='/maps/lh/app.js'></script>
   </head>
   <body>
     <div id="map"></div>
     <script>
-      function main (Lh) {
+      require(['lh', 'lh-search'], function (Lh, LhSearch) {
         var map = Lh.map('map');
 
         var basemap = Lh.tileLayer('//ggcity.org/tileserver/styles/standard/{z}/{x}/{y}.png').addTo(map);
@@ -24,13 +28,12 @@
         });
 
         L.layerGroup(overlays).addTo(map);        
-        L.control.search({
+        LhSearch({
           popupContent: function (data) {
-            var apps = [0,1,2];
-            return '<div style="text-align: center"><h6 style="margin-bottom: -20px">' + data.address + '</h6><p>is a Garden Grove address</p><p># of applications: <strong>' + apps[Math.floor(Math.random() * apps.length)] + '</strong></p></div>';
+            return '<div style="text-align: center"><h6 style="margin-bottom: -20px">' + data.address + '</h6><p>is a Garden Grove address</p></div>';
           }
         }).addTo(map);
-      }
+      });
     </script> 
   </body>
 </html>

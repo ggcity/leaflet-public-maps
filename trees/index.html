@@ -6,12 +6,16 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <script data-main='/maps/js/lh.js' src="/maps/js/require.js"></script>
+    <link rel="stylesheet" type="text/css" href='/maps/css/main.css'>
+    <link rel="stylesheet" type="text/css" href='https://unpkg.com/leaflet@1.5.1/dist/leaflet.css'>
+
+    <script src="/maps/lh/require.js"></script>
+    <script src='/maps/lh/app.js'></script>
   </head>
   <body>
     <div id="map"></div>
     <script>
-      function main (Lh) {
+      require(['lh', 'lh-search'], function (Lh, LhSearch) {
         var map = Lh.map('map', {
           maptiks_id: "trees",
           bounds: [[33.773542, -117.94173], [33.777877, -117.932342]], 
@@ -26,8 +30,8 @@
         ]);
 
 	L.layerGroup(overlays).addTo(map);        
-        L.control.search().addTo(map);
-      }
+        LhSearch().addTo(map);
+      });
     </script> 
   </body>
 </html>

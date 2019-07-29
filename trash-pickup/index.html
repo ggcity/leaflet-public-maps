@@ -6,12 +6,16 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <script data-main='/maps/js/lh.js' src="/maps/js/require.js"></script>
+    <link rel="stylesheet" type="text/css" href='/maps/css/main.css'>
+    <link rel="stylesheet" type="text/css" href='https://unpkg.com/leaflet@1.5.1/dist/leaflet.css'>
+
+    <script src="/maps/lh/require.js"></script>
+    <script src='/maps/lh/app.js'></script>
   </head>
   <body>
     <div id="map"></div>
     <script>
-      function main (Lh) {
+      require(['lh', 'lh-search'], function (Lh, LhSearch) {
         var map = Lh.map('map', {
           maptiks_id: "trash-pickup",
           maxZoom: 16
@@ -21,12 +25,12 @@
 
         Lh.wms('//ggcity.org/geoserver/gis/wms', 'gis:pw.trash_pickup', { identify: false }).addTo(map);
 
-        L.control.search({ popupContent: function (data) {
+        LhSearch({ popupContent: function (data) {
           return '<div style="text-align: center; font-size: 1.1em;">' + data.address + '</div>' +
             '<div style="text-align: center; font-size: 1.25em;">Your next <strong>trash pickup</strong> day is <span class="text-primary" style="font-weight: bold">' + 
             data.trash_pickup_day + '</span> or next business day.</div>'
         }}).addTo(map);
-      }
+      });
     </script> 
   </body>
 </html>

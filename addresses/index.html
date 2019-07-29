@@ -6,12 +6,16 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <script data-main='/maps/js/lh.js' src="/maps/js/require.js"></script>
+    <link rel="stylesheet" type="text/css" href='/maps/css/main.css'>
+    <link rel="stylesheet" type="text/css" href='https://unpkg.com/leaflet@1.5.1/dist/leaflet.css'>
+
+    <script src="/maps/lh/require.js"></script>
+    <script src='/maps/lh/app.js'></script>
   </head>
   <body>
     <div id="map"></div>
     <script>
-      function main (Lh) {
+      require(['lh', 'lh-aerials', 'lh-search'], function (Lh, LhAerials, LhSearch) {
         var map = Lh.map('map', {
           maptiks_id: "addresses",
           bounds: [[33.773542, -117.94173], [33.777877, -117.932342]],
@@ -30,14 +34,14 @@
 
         var radioLayers = {
           "Basemap": basemap,
-          "Aerials": Lh.aerial()
+          "Aerials": LhAerials()
         };
 
         toggleLayers["All Addresses"].addTo(map);
         
-        L.control.search().addTo(map);
+        LhSearch().addTo(map);
         L.control.layers(radioLayers, toggleLayers, {collapsed:($(window).width() < 768)}).addTo(map);
-      }
+      });
     </script> 
   </body>
 </html>

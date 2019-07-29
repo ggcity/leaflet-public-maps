@@ -6,12 +6,16 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <script data-main='/maps/js/lh.js' src="/maps/js/require.js"></script>
+    <link rel="stylesheet" type="text/css" href='/maps/css/main.css'>
+    <link rel="stylesheet" type="text/css" href='https://unpkg.com/leaflet@1.5.1/dist/leaflet.css'>
+
+    <script src="/maps/lh/require.js"></script>
+    <script src='/maps/lh/app.js'></script>
   </head>
   <body>
     <div id="map"></div>
     <script>
-      function main (Lh) {
+      require(['lh', 'lh-search'], function (Lh, LhSearch) {
         var map = Lh.map('map', {
           maptiks_id: "state-districts",
           minZoom: 11,
@@ -24,13 +28,13 @@
           "State Senate Districts": 'gis:state.senate_districts',
           "State Congressional Districts": 'gis:state.assembly_districts',
           "State Assembly Districts": 'gis:state.congress_districts'
-        });
+        }, { identify: false });
 
         radioLayers["State Senate Districts"].addTo(map);
 
-        L.control.search().addTo(map);
+        LhSearch().addTo(map);
         L.control.layers(radioLayers, null, {collapsed:($(window).width() < 768)}).addTo(map);
-      }
+      });
     </script> 
   </body>
 </html>
