@@ -31,6 +31,12 @@
 
         L.layerGroup([ overlays[0], overlays[2] ]).addTo(map)
         LhSearch().addTo(map);
+
+        Lh.info({
+          position: 'topright',
+          content: '<a href="/planning/questions-about-flood-zone" class="form-control form-control-lg">View Flood Zone Page</a>'
+        }).addTo(map); 
+
         L.control.layers( { "FEMA LOMAs": overlays[0] }, { "FEMA SFHAs": overlays[1] }, {collapsed:($(window).width() < 768)}).addTo(map);
 
         // add initial popup

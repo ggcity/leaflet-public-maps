@@ -17,7 +17,7 @@
     <script>
       require(['lh', 'lh-search'], function (Lh, LhSearch) {
         var map = Lh.map('map', {
-          maptiks_id: "council-districts",
+          //maptiks_id: "council-districts",
           maxZoom:16
         });
 
@@ -36,6 +36,12 @@
             '<div class="text-primary" style="font-weight: bold; font-size: 1.8em; text-align: center">' + data.council_member + '</div>' +
             '<div style="font-weight: bold; font-size: 1.4em; text-align: center">District ' + data.council_district + '</div>'
         }}).addTo(map);
+
+        Lh.info({
+          position: 'topright',
+          content: '<a href="/city-council" class="form-control form-control-lg">View City Council Page</a>'
+        }).addTo(map); 
+
       });
     </script> 
   </body>

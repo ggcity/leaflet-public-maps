@@ -27,6 +27,13 @@ body, .leaflet-container {
   width: 300px;
 }
 
+.info-control {
+  width: 300px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+}
+
 .shepherd-element.shepherd-theme-dark .shepherd-content header a.shepherd-cancel-link {
   color: #3288E6;
   opacity: 0.8;
@@ -57,4 +64,50 @@ body, .leaflet-container {
     width: 11in;
     height: 8.5in;
   }
+}
+
+// Small device (portrait mode, 576 and smaller)
+
+.leaflet-popup-content-wrapper{ 
+  width: 500px;
+  background-color: red!important; 
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+
+  .leaflet-popup-content-wrapper {
+    width: 400px;
+    background-color: red;
+  }
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+
+  .leaflet-popup-content-wrapper {
+    width: 600px;
+    background-color: orange;
+  }
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+
+  .leaflet-popup-content-wrapper {
+    width: 800px;
+    background-color: blue;
+  }
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  // This is not really necessary since the style doesn't change but I'm leaving it just in case you need it for reference.
+  .leaflet-popup-content-wrapper {
+    width: 800px;
+  }
+
 }

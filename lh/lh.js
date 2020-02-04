@@ -1,5 +1,5 @@
-define(['leaflet', 'jquery', 'lh-load-css', 'wms', 'fullscreen', 'edgebuffer', 'maptiks'], 
-function(L, $, loadCss, wms, search, fullscreen, edgebuffer, mt) {
+define(['leaflet', 'jquery', 'lh-load-css', 'wms', 'fullscreen', 'edgebuffer', 'info', 'maptiks'], 
+function(L, $, loadCss, wms, search, fullscreen, edgebuffer, info, mt) {
   loadCss("/maps/css/fullscreen.css");
 
   if ($('script[data-lhembed="1"]').length == 0) {
@@ -79,6 +79,14 @@ function(L, $, loadCss, wms, search, fullscreen, edgebuffer, mt) {
       }
     }
     return wmsLayers;
+  };
+
+  // adds an info control to the map
+  Lh.info = function (options) {
+    return L.Control.info($.extend({
+      position: 'topleft',
+      content: 'None'
+    }, options));
   };
 
   return Lh;

@@ -31,6 +31,12 @@
 
 	L.layerGroup(overlays).addTo(map);        
         LhSearch().addTo(map);
+
+        Lh.info({
+          position: 'topright',
+          content: '<a href="/pw/trees" class="form-control form-control-lg">View Trees Page</a>'
+        }).addTo(map); 
+
       });
     </script> 
   </body>

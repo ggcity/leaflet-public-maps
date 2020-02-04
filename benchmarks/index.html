@@ -29,6 +29,12 @@
         }).addTo(map);
 
         Lh.wms(wmsSource, 'gis:city.benchmarks').addTo(map);
+
+        Lh.info({
+          position: 'topright',
+          content: '<a href="/engineering/benchmarks" class="form-control form-control-lg">View Benchmarks Page</a>'
+        }).addTo(map);
+
       });
     </script> 
   </body>

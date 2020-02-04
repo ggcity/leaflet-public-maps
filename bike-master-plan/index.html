@@ -23,8 +23,16 @@
 
         var basemap = Lh.tileLayer('//ggcity.org/tileserver/styles/standard/{z}/{x}/{y}.png').addTo(map);
 
-        var wmsSource = '//ggcity.org/geoserver/gis/wms'
+        var wmsSource = '//ggcity.org/geoserver/gis/wms';
         Lh.wms(wmsSource, 'gis:city.bicycle_corridors').addTo(map);
+
+        Lh.info({
+          position: 'topright',
+          content: '<a href="/sites/default/files/active-streets-master-plan-web.pdf"' + 
+                   'style="font-size: 1.5em" class="form-control form-control-lg">' +
+                   'View Active Streets Master Plan</a>'
+        }).addTo(map); 
+
       });
     </script> 
   </body>

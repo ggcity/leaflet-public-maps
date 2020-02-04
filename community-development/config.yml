@@ -9,8 +9,7 @@ baseMaps:
     edgeBufferTiles: 1
     maxZoom: 20
   - source: '//ggcity.org/geoserver/gwc/service/wms'
-    layers: 'gis:aerials'
-    # fix format to use image/png so we can use aerials_latest
+    layers: 'gis:aerials_latest'
     format: WMS
     transparent: false
     maxZoom: 20

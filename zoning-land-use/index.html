@@ -46,6 +46,12 @@
         };
 
         LhSearch().addTo(map);
+
+        Lh.info({
+          position: 'topright',
+          content: '<a href="/planning" class="form-control form-control-lg">View Planning Page</a>'
+        }).addTo(map); 
+
         L.control.layers(radioLayers, null, {collapsed:($(window).width() < 768)}).addTo(map);
       });
     </script> 

@@ -9,8 +9,7 @@ baseMaps:
     edgeBufferTiles: 1
     maxZoom: 20
   - source: '//ggcity.org/geoserver/gwc/service/wms'
-    layers: 'gis:aerials'
-    # fix format to use image/png so we can use aerials_latest
+    layers: 'gis:aerials_latest'
     format: WMS
     transparent: false
     maxZoom: 20
@@ -52,6 +51,8 @@ overlayMaps:
           name: Parks
         - machineName: 'gis:city.schools'
           name: Schools
+        - machineName: 'gis:city.streets'
+          name: Street Centerlines
 
   - machineName: building
     name: Building Case Layers 
@@ -149,8 +150,6 @@ overlayMaps:
       alwaysOn:
         - machineName: 'gis:city.boundary'
       exclusives:
-        - machineName: 'gis:planning.cdbg'
-          name: CDBG 
         - machineName: 'gis:planning.land_use'
           name: Land Use 
         - machineName: 'gis:planning.open_cases'

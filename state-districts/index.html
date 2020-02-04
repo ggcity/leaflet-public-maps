@@ -33,6 +33,12 @@
         radioLayers["State Senate Districts"].addTo(map);
 
         LhSearch().addTo(map);
+
+        Lh.info({
+          position: 'topright',
+          content: '<a href="https://leginfo.legislature.ca.gov/" class="form-control form-control-lg">View CA Legislature Page</a>'
+        }).addTo(map); 
+
         L.control.layers(radioLayers, null, {collapsed:($(window).width() < 768)}).addTo(map);
       });
     </script> 

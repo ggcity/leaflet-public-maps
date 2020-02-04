@@ -7,10 +7,11 @@ require([
   "https://code.jquery.com/jquery-3.4.1.min.js"
 ], function () { 
 
+  //loadCss("/maps/css/L.Control.Locate.min.css");
   loadCss("https://unpkg.com/leaflet@1.5.1/dist/leaflet.css");
   loadCss("https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css");
 
-  if ($('script[data-lhembed="true"]').length == 0) {
+  if ($('script[data-lhembed="1"]').length == 0) {
     loadCss("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css");
     loadCss("/maps/css/main.css");
   }
@@ -18,9 +19,12 @@ require([
 require([
   "leaflet.edgebuffer",
   "leaflet.wms",
+  "leaflet.browser.print.min",
+  "dom-to-image.min",
   "L.Control.Search",
+  //"L.Control.Locate.min",
   "https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js",
-  "https://cdn.maptiks.com/maptiks-leaflet.min.js"
+  "https://cdn.maptiks.com/maptiks-leaflet.min.js",
 ], function () {
 
   maptiks.trackcode='7582471a-da37-44e3-8dd1-dbc7bc3f8ca2';
@@ -47,7 +51,8 @@ require([
     }, options));
 
     map.fitBounds(map.options.bounds);
-
+    
+    Lh.print(basemap).addTo(map);
     L.control.scale().addTo(map);
     L.control.attribution({ prefix: '<a href="https://ggcity.org/maps">GGCity</a> ' }).addTo(map);
   
@@ -116,11 +121,23 @@ require([
   Lh.aerial = function () {
     return L.tileLayer.wms('//ggcity.org/geoserver/gwc/service/wms', {
       layers: 'gis:aerials',
-      format: 'image/png',
+      format: 'image/jpeg',
       transparent: false,
       maxZoom: 22,
       maxNativeZoom: 22
     });
+  };
+
+  var basemap = Lh.tileLayer;
+  Lh.print = function (basemap) {
+    return L.control.browserPrint({
+      title: 'Print map (Chrome only)',
+      documentTitle: 'Leaflet map export',
+      printLayer: basemap,
+      closePopupsOnPrint: false,
+      printModes: [L.control.browserPrint.mode.landscape()],
+      manualMode: false
+    })
   };
 
   main(Lh);
@@ -134,3 +151,13 @@ function loadCss(url) {
   document.getElementsByTagName("head")[0].appendChild(link);
 }
 
+window.print = function () {
+  return domtoimage
+  .toPng(document.querySelector('.grid-print-container'))
+  .then(function (dataUrl) {
+    var link = document.createElement('a');
+    link.download = 'exported-map.png';
+    link.href = dataUrl;
+    link.click();
+  });
+};

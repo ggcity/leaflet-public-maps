@@ -163,7 +163,9 @@ wms.Source = L.Layer.extend({
         function done(result) {
             this.hideWaiting();
             var text = this.parseFeatureInfo(result, url);
-            callback.call(this, latlng, text);
+            if (text !== '') { 
+              callback.call(this, latlng, text);
+            }
         }
     },
 

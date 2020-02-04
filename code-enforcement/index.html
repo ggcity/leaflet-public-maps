@@ -37,7 +37,14 @@
           return '<div class="text-primary" style="font-weight: bold; font-size: 1.7em; text-align: center">' + data.code_enforcement_officer + '</div>' +
             '<div style="text-align: center; font-size: 1.1em;">' + data.address + '</div>'
         }}).addTo(map);
+
+        Lh.info({
+          position: 'topright',
+          content: '<a href="/code-enforcement" style="font-size: 1.5em" class="form-control form-control-lg">View Code Enforcement Page</a>'
+        }).addTo(map); 
+
         L.control.layers(null, { "Reporting Districts": overlayLayers[1] }, {collapsed:($(window).width() < 768)}).addTo(map);
+
       });
     </script> 
   </body>

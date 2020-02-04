@@ -27,6 +27,12 @@
         Lh.wms('//ggcity.org/geoserver/gis/wms', 'gis:county.census_tracts').addTo(map);
 
         LhSearch().addTo(map);
+
+        Lh.info({
+          position: 'topright',
+          content: '<a href="https://www.census.gov/en.html" style="font-size: 1.5em" class="form-control form-control-lg">View US Census Bureau Page</a>'
+        }).addTo(map); 
+
       });
     </script> 
   </body>

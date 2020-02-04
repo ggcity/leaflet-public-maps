@@ -30,6 +30,12 @@
             '<div style="text-align: center; font-size: 1.25em;">Your next <strong>trash pickup</strong> day is <span class="text-primary" style="font-weight: bold">' + 
             data.trash_pickup_day + '</span> or next business day.</div>'
         }}).addTo(map);
+
+        Lh.info({
+          position: 'topright',
+          content: '<a href="/pw/trash-recycling" class="form-control form-control-lg">View Trash & Recycling Page</a>'
+        }).addTo(map); 
+
       });
     </script> 
   </body>

@@ -34,6 +34,12 @@
             '<div style="text-align: center; font-size: 1.25em;">Your <strong>street sweeping</strong> is on the <span class="text-primary" style="font-weight: bold">' + 
             data.street_sweeping_days + '</span> of the month.</div>'
         }}).addTo(map);
+
+        Lh.info({
+          position: 'topright',
+          content: '<a href="/pw/street-sweeping" class="form-control form-control-lg">View Street Sweeping Page</a>'
+        }).addTo(map); 
+
       });
     </script> 
   </body>

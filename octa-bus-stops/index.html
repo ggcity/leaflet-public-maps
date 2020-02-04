@@ -24,6 +24,12 @@
 
         Lh.wms('//ggcity.org/geoserver/gis/wms', 'gis:county.octa_bus_stops').addTo(map);
         LhSearch().addTo(map);
+
+        Lh.info({
+          position: 'topright',
+          content: '<a href="https://www.octa.net/Bus/Overview/" class="form-control form-control-lg">View OCTA Page</a>'
+        }).addTo(map); 
+
       });
     </script> 
   </body>
