@@ -2,7 +2,8 @@ define(['leaflet', 'jquery'], function (L, $) {
 
   var LhSearch = L.Control.extend({
     options: {
-      position: 'topright'
+      position: 'topright',
+      popupContent: function (data) { return 'Not set' }
     },
   
     onAdd: function (map) {
@@ -13,7 +14,7 @@ define(['leaflet', 'jquery'], function (L, $) {
       this._form = L.DomUtil.create('form', 'search-form', this._container);
   
       this._form.innerHTML = '<div class="input-group">' +
-        '<input id="address-search" class="form-control form-control-lg" type="search" placeholder="eg. 11222 Acacia Pkwy" />' +
+        '<input id="address-search" class="form-control form-control-lg" type="search" placeholder="Address or APN" />' +
         '<div class="input-group-append"><button class="btn btn-primary btn-lg" type="submit">&raquo;</button></div>' +
         '</div>';
   
@@ -26,8 +27,17 @@ define(['leaflet', 'jquery'], function (L, $) {
   
     _search: function (e) {
       L.DomEvent.stop(e);
-  
-      var searchUrl = (this.options.searchUrl) ? this.options.searchUrl : 'https://ggcity.org/maps/api/addresses/info';
+
+      var searchUrl = this.options.searchUrl;
+      if (!searchUrl) {
+        if ($('#address-search').val().match(/^[0-9- ]+$/)) {
+          searchUrl = 'https://ggcity.org/maps/api/parcels/info';
+          this.options.popupContent = function (data) { return data.parcel_apn };
+        } else {
+          searchUrl = 'https://ggcity.org/maps/api/addresses/info';
+          this.options.popupContent = function (data) { return data.address };
+        }
+      }
       
       if ($('#address-search').val() == '') return;
   
@@ -49,7 +59,7 @@ define(['leaflet', 'jquery'], function (L, $) {
         return;
       }
   
-      var popupContent = '<div style="text-align: center; font-size: 1.1em;">' + data.address + '</div>';
+      var popupContent = '<div style="text-align: center; font-size: 1.1em;">' + this.options.popupContent(data) + '</div>';
       if (this.options.popupContent) {
         if (typeof this.options.popupContent === 'function') {
           popupContent = this.options.popupContent.call(null, data);

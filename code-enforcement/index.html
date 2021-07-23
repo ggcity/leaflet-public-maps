@@ -15,9 +15,8 @@
   <body>
     <div id="map"></div>
     <script>
-      require(['lh', 'lh-search', 'lh-print'], function (Lh, LhSearch, LhPrint) {
+      require(['lh', 'lh-search', 'lh-print', 'lh-geojson', './code-violations.js', './building-violations.js'], function (Lh, LhSearch, LhPrint, LhGeoJSON, cv, bv) {
         var map = Lh.map('map', {
-          maptiks_id: "code-enforcement",
           maxZoom:18
         });
 
@@ -25,10 +24,42 @@
 
         var overlayLayers = Lh.wms('//ggcity.org/geoserver/gis/wms', [
           'gis:code.officer_coverage', 
-          'gis:pd.reporting_districts' 
+          'gis:pd.reporting_districts',
+          'gis:code.violations',
+          'gis:building.code_violations'
         ], { 
           identify: false 
         });
+
+        // Create code.violations layer as geojson
+        var codeViolations = LhGeoJSON('https://ggcity.org/geoserver/gis/ows', 'gis:code.violations', {
+          pointToLayer: function (feature, latlng) {
+            var style = cv.style(feature.properties.type);
+            return L.circleMarker(latlng, style);
+          },
+          onEachFeature: function (feature, layer) {
+            var htmlContent = cv.popup(feature.properties)
+            layer.bindPopup(htmlContent);
+          }
+        });
+
+        // Create code.violations layer as geojson 
+        var buildingCodeViolations = LhGeoJSON('https://ggcity.org/geoserver/gis/ows', 'gis:building.code_violations', {
+          pointToLayer: function (feature, latlng) {
+            var style = bv.style(feature.properties);
+            return L.circleMarker(latlng, style);
+          },
+          onEachFeature: function (feature, layer) {
+            var htmlContent = bv.popup(feature.properties)
+            layer.bindPopup(htmlContent);
+          }
+        });
+
+        var toggleLayers = { 
+          "Reporting Districts": overlayLayers[1],
+          "Code Enforcement Violations": codeViolations,
+          "Building Code Violations": buildingCodeViolations
+        };
 
         overlayLayers[0].addTo(map);
 
@@ -43,7 +74,8 @@
           content: '<a href="/code-enforcement" style="font-size: 1.5em" class="form-control form-control-lg">View Code Enforcement Page</a>'
         }).addTo(map); 
 
-        L.control.layers(null, { "Reporting Districts": overlayLayers[1] }, {collapsed:($(window).width() < 768)}).addTo(map);
+
+        L.control.layers(null, toggleLayers, {collapsed:($(window).width() < 768)}).addTo(map);
 
       });
     </script> 

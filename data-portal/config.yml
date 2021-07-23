@@ -66,11 +66,9 @@ overlayMaps:
       alwaysOn:
         - machineName: 'gis:city.boundary'
       exclusives:
-        - machineName: 'gis:building.code_violations'
-          name: Code Violations 
-          visible: true
         - machineName: 'gis:building.open_permits'
           name: Open Permits
+          visible: true
 
   - machineName: code_enforcement
     name: Code Enforcement Layers 

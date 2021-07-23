@@ -37,17 +37,6 @@ overlayMaps:
           identify: true
           cluster: true
           visible: true 
-        - machineName: 'gis:building.code_violations'
-          source: //ggcity.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:building.code_violations&outputFormat=application%2Fjson&srsName=EPSG:4326
-          name: Building Code Violations 
-          type: geojson
-          radius: 10
-          weight: 0
-          fillColor: '#f4ac41'
-          fillOpacity: 0.8 
-          maxClusterRadius: 50 
-          identify: true
-          cluster: true
         - machineName: 'gis:building.scheduled_inspections'
           source: //ggcity.org/geoserver/gis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gis:building.scheduled_inspections&outputFormat=application%2Fjson&srsName=EPSG:4326
           name: Scheduled Building Inspections

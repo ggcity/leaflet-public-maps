@@ -17,24 +17,25 @@
     <script>
       require(['lh', 'lh-search'], function (Lh, LhSearch) {
         var map = Lh.map('map', {
-          //maptiks_id: "council-districts",
           maxZoom:16
         });
 
         var basemap = Lh.tileLayer('//ggcity.org/tileserver/styles/standard-no-boundary/{z}/{x}/{y}.png').addTo(map);
 
         var overlays = Lh.wms('//ggcity.org/geoserver/gis/wms', [
-          'gis:city.council_districts', 
+          'gis:city.council_district_info', 
           'gis:city.boundary'
         ], { 
-          identify: false 
+          identify: true 
         });
         L.layerGroup(overlays).addTo(map);
 
         LhSearch({ popupContent: function (data) {
-          return '<div style="text-align: center; font-size: 1.2em;">' + data.address + '</div>' +
-            '<div class="text-primary" style="font-weight: bold; font-size: 1.8em; text-align: center">' + data.council_member + '</div>' +
-            '<div style="font-weight: bold; font-size: 1.4em; text-align: center">District ' + data.council_district + '</div>'
+          return '<div style="text-align: center; font-size: 1.1em;">' + data.address + '</div>' +
+            '<div class="text-primary" style="font-weight: bold; font-size: 1.6em; text-align: center">District ' + data.council_district + '</div>' +
+            '<div style="font-weight: bold; font-size: 1.4em; text-align: center">' + data.council_member + '</div>' +
+            '<div style="font-weight: bold; font-size: 1.4em; text-align: center">' + 
+            '<a class="link" href="https://ggcity.org/districts/district-' + data.council_district + '" target="_blank">Visit District Page</a></div>'
         }}).addTo(map);
 
         Lh.info({

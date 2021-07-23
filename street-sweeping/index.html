@@ -15,13 +15,12 @@
   <body>
     <div class="alert alert-warning" role="alert" style="margin:0">
       <strong>Warning!</strong> The City of Garden Grove does not guarantee the accuracy of this map. 
-      Please check the signs posted in your area to confirm the exact dates and times of street sweeping to avoid citation.
+      Please check the signs posted in your area to confirm the exact dates and times of street sweeping to avoid citation.<br />
     </div>
     <div id="map"></div>
     <script>
       require(['lh', 'lh-search'], function (Lh, LhSearch) {
         var map = Lh.map('map', {
-          maptiks_id: "street-sweeping",
           maxZoom: 16
         });
 

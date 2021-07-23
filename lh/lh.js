@@ -1,12 +1,9 @@
-define(['leaflet', 'jquery', 'lh-load-css', 'wms', 'fullscreen', 'edgebuffer', 'info', 'maptiks'], 
+define(['leaflet', 'jquery', 'lh-load-css', 'wms', 'fullscreen', 'edgebuffer', 'info'], 
 function(L, $, loadCss, wms, search, fullscreen, edgebuffer, info, mt) {
   loadCss("/maps/css/fullscreen.css");
 
   if ($('script[data-lhembed="1"]').length == 0) {
     loadCss("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css");
-  };
-  if (mt) {
-    maptiks.trackcode='7582471a-da37-44e3-8dd1-dbc7bc3f8ca2'
   };
 
   var Lh = {};

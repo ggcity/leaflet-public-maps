@@ -24,10 +24,7 @@ require([
   "L.Control.Search",
   //"L.Control.Locate.min",
   "https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js",
-  "https://cdn.maptiks.com/maptiks-leaflet.min.js",
 ], function () {
-
-  maptiks.trackcode='7582471a-da37-44e3-8dd1-dbc7bc3f8ca2';
 
   var Lh = {};
   
